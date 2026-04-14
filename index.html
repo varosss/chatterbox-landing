@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой Мессенджер — Пет-проект</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    .hero-bg { background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%); }
+    .mermaid { background: #1e2937; border-radius: 12px; padding: 20px; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-200">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur-md z-50 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3 text-xl font-bold">
+        <i class="fa-solid fa-comments text-blue-500"></i>
+        МойМессенджер
+      </div>
+      <a href="#demo" class="bg-blue-600 hover:bg-blue-700 px-6 py-2.5 rounded-2xl font-medium transition">Смотреть демо</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero-bg min-h-screen flex items-center pt-16">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
+          Реальный мессенджер<br>с нуля на WebSocket
+        </h1>
+        <p class="text-xl text-slate-400 mb-8">
+          Полноценный чат с онлайн-статусами, историей сообщений, аватарками и реакциями.<br>
+          Сделан как пет-проект для портфолио.
+        </p>
+        
+        <div class="flex gap-4">
+          <!-- === ЗАМЕНИ НА СВОИ ССЫЛКИ === -->
+          <a href="https://github.com/ТВОЙ_НИК/frontend-repo" target="_blank"
+             class="flex-1 bg-white text-slate-900 hover:bg-slate-100 py-4 px-6 rounded-3xl font-semibold flex items-center justify-center gap-3">
+            <i class="fa-brands fa-github"></i> Frontend
+          </a>
+          <a href="https://github.com/ТВОЙ_НИК/backend-repo" target="_blank"
+             class="flex-1 border border-slate-400 hover:border-slate-300 py-4 px-6 rounded-3xl font-semibold flex items-center justify-center gap-3">
+            <i class="fa-brands fa-github"></i> Backend
+          </a>
+        </div>
+      </div>
+      
+      <div class="bg-slate-900 p-8 rounded-3xl border border-slate-700 shadow-2xl">
+        <!-- Можно вставить скриншот главного экрана мессенджера -->
+        <img src="https://via.placeholder.com/600x400/1e2937/64748b?text=Скриншот+мессенджера" alt="Мессенджер" class="rounded-2xl shadow-xl">
+      </div>
+    </div>
+  </header>
+
+  <!-- ФУНКЦИОНАЛ -->
+  <section class="max-w-6xl mx-auto px-6 py-20" id="features">
+    <h2 class="text-4xl font-bold text-center mb-12">Что умеет мессенджер</h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Добавь/удали карточки по своему функционалу -->
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ Реал-тайм сообщения (WebSocket)</div>
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ Онлайн/оффлайн статусы</div>
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ История сообщений + пагинация</div>
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ Аватарки и реакции</div>
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ Поиск по пользователям</div>
+      <div class="bg-slate-900 p-8 rounded-3xl">✅ Защита JWT + refresh tokens</div>
+    </div>
+  </section>
+
+  <!-- СТЕК ТЕХНОЛОГИЙ -->
+  <section class="bg-slate-900 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">Стек технологий</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <!-- === ЗАМЕНИ НА СВОЙ СТЕК === -->
+        <div class="bg-slate-800 p-6 rounded-3xl">React + TypeScript</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">Node.js + Express</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">WebSocket / Socket.io</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">PostgreSQL</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">Prisma ORM</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">Docker</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">JWT + bcrypt</div>
+        <div class="bg-slate-800 p-6 rounded-3xl">Tailwind CSS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ВНУТРЕННЕЕ УСТРОЙСТВО + БЛОК-СХЕМА -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold text-center mb-12">Как всё работает изнутри</h2>
+    <div class="bg-slate-900 p-10 rounded-3xl">
+      <div class="mermaid">
+        graph TD
+            A[Frontend<br>React + TS] -->|WebSocket / HTTP| B[Backend<br>Node.js + Express]
+            B -->|JWT| C[База данных<br>PostgreSQL]
+            B -->|Socket.io| A
+            C -->|Prisma| B
+            style A fill:#3b82f6,stroke:#fff,color:#fff
+            style B fill:#22c55e,stroke:#fff,color:#fff
+            style C fill:#eab308,stroke:#fff,color:#fff
+      </div>
+      <p class="text-center mt-8 text-slate-400 max-w-2xl mx-auto">
+        <!-- === ЗАМЕНИ НА СВОЁ ОПИСАНИЕ ВНУТРЕННЕГО УСТРОЙСТВА === -->
+        Клиент подключается по WebSocket для мгновенной доставки сообщений. 
+        Backend валидирует JWT-токены, сохраняет сообщения в PostgreSQL через Prisma. 
+        При отключении клиента данные остаются в БД.
+      </p>
+    </div>
+  </section>
+
+  <!-- ВИДЕО ТЕСТ-КЕЙСЫ -->
+  <section class="max-w-6xl mx-auto px-6 py-20 bg-slate-900" id="demo">
+    <h2 class="text-4xl font-bold text-center mb-12">Тест-кейсы в видео</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- === ЗАМЕНИ НА СВОИ YOUTUBE ССЫЛКИ === -->
+      <div>
+        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/ТВОЙ_ID_ВИДЕО1" frameborder="0" allowfullscreen></iframe>
+        <p class="mt-3 text-center">1. Авторизация + отправка сообщений</p>
+      </div>
+      <div>
+        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/ТВОЙ_ID_ВИДЕО2" frameborder="0" allowfullscreen></iframe>
+        <p class="mt-3 text-center">2. Реал-тайм обновления и статусы</p>
+      </div>
+      <div>
+        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/ТВОЙ_ID_ВИДЕО3" frameborder="0" allowfullscreen></iframe>
+        <p class="mt-3 text-center">3. Тест производительности (1000 сообщений)</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    Сделано с ❤️ для портфолио • 2026
+  </footer>
+
+  <script>
+    // Инициализация Tailwind
+    tailwind.config = { content: ["*"], theme: { extend: {} } }
+    // Инициализация Mermaid
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+</body>
+</html>
