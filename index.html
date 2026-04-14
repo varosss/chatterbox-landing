@@ -49,7 +49,6 @@
       </div>
       
       <div class="bg-slate-900 p-8 rounded-3xl border border-slate-700 shadow-2xl">
-        <!-- Можно вставить скриншот главного экрана мессенджера -->
         <img src="images\chatterbox_main.png" alt="Мессенджер" class="rounded-2xl shadow-xl">
       </div>
     </div>
@@ -57,11 +56,46 @@
 
   <!-- ФУНКЦИОНАЛ -->
   <section class="max-w-6xl mx-auto px-6 py-20" id="features">
-    <h2 class="text-4xl font-bold text-center mb-12">Что умеет мессенджер</h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      <div class="bg-slate-900 p-8 rounded-3xl">✅ JWT-авторизация через HTTP Only Cookies</div>
-      <div class="bg-slate-900 p-8 rounded-3xl">✅ Realtime обмен сообщениями по WebSocket</div>
-       <div class="bg-slate-900 p-8 rounded-3xl">✅ Групповые чаты пользователей</div>
+    <h2 class="text-4xl font-bold text-center mb-12">Что умеет Chatterbox</h2>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">🔐</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">JWT-авторизация</h3>
+        <p class="text-slate-400">Безопасная авторизация через HTTP-only cookies. Каждый микросервис самостоятельно валидирует access-токен.</p>
+      </div>
+
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">Realtime сообщения</h3>
+        <p class="text-slate-400">Мгновенная доставка сообщений через WebSocket с помощью Notification Service и RabbitMQ.</p>
+      </div>
+
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">👥</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">Групповые и личные чаты</h3>
+        <p class="text-slate-400">Поддержка как один-на-один чатов, так и групповых переписок с несколькими участниками.</p>
+      </div>
+
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">💾</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">История сообщений</h3>
+        <p class="text-slate-400">Надёжное хранение всей переписки в PostgreSQL с возможностью загрузки истории при входе.</p>
+      </div>
+
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">📡</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">Микросервисная архитектура</h3>
+        <p class="text-slate-400">Три независимых сервиса (User, Chat, Notification) с асинхронной связью через RabbitMQ.</p>
+      </div>
+
+      <div class="bg-zinc-900 p-8 rounded-3xl border border-slate-700 hover:border-blue-500 transition-all group">
+        <div class="text-4xl mb-4">🚀</div>
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">Масштабируемость и Docker</h3>
+        <p class="text-slate-400">Каждый сервис контейнеризирован. Легко масштабировать и разворачивать в production.</p>
+      </div>
+
     </div>
   </section>
 
@@ -70,7 +104,6 @@
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-4xl font-bold text-center mb-12">Стек технологий</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-        <!-- === ЗАМЕНИ НА СВОЙ СТЕК === -->
         <div class="bg-slate-800 p-6 rounded-3xl">Golang</div>
         <div class="bg-slate-800 p-6 rounded-3xl">PostgreSQL</div>
         <div class="bg-slate-800 p-6 rounded-3xl">RabbitMQ</div>
@@ -85,65 +118,220 @@
 
   <!-- ВНУТРЕННЕЕ УСТРОЙСТВО + БЛОК-СХЕМА -->
   <section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="text-4xl font-bold text-center mb-12">Как всё работает изнутри</h2>
-  <div class="bg-slate-900 p-10 rounded-3xl">
+    <h2 class="text-4xl font-bold text-center mb-12">Как всё работает изнутри</h2>
     
-    <div class="bg-slate-900 p-8 md:p-12 rounded-3xl border border-slate-700">
-    <div class="flex justify-center bg-slate-900 p-6 rounded-2xl">
-      <img src="images/chatterbox_architecture.svg" 
-           alt="Архитектура микросервисов Chatterbox" 
-           class="max-w-full h-auto rounded-xl shadow-2xl">
-    </div>
+    <div class="bg-zinc-900 p-8 md:p-12 rounded-3xl border border-slate-700">
+      <div class="mermaid flex justify-center">
+        flowchart TB
+          Client[Frontend\nReact + TypeScript]
+          WS[WebSocket Client]
 
-    <p class="text-center text-slate-400 max-w-3xl mx-auto">
-      Система состоит из трёх независимых микросервисов на Golang:<br>
-      • <strong>User Service</strong> — регистрация, авторизация через HTTP-only cookies + JWT, работа с профилями.<br>
-      • <strong>Chat Service</strong> — создание чатов и сообщений, хранение истории в PostgreSQL, публикация событий в RabbitMQ.<br>
-      • <strong>Notification Service</strong> — подписка на брокер и доставка сообщений по WebSocket клиентам.<br>
-      Каждый микросервис самостоятельно валидирует access-токен из cookies.
-    </p>
-  </div>
+          User["User Service\n- Register/Login\n- JWT (HTTP-only cookie)\n- Get user data"]
+          Chat[Chat Service\n- Validate JWT\n- Create chats/messages\n- Store in DB\n- Publish event]
+          Notif[Notification Service\n- Validate JWT\n- Consume event\n- WebSocket delivery]
+
+          UserDB[(User DB\nPostgreSQL)]
+          ChatDB[(Chat DB\nPostgreSQL)]
+          Rabbit[RabbitMQ\nMessage Broker]
+
+          Client -->|HTTP| User
+          Client -->|HTTP| Chat
+          WS -.->|WebSocket| Notif
+
+          User -->|Save user + refresh_token| UserDB
+          Chat -->|Save chat + message| ChatDB
+          Chat -->|publish message.created| Rabbit
+          Rabbit -->|consume message.created| Notif
+          Notif -->|WebSocket| WS
+
+          classDef frontend fill:#3b82f6,stroke:#1e40af,color:#fff
+          classDef user     fill:#8b5cf6,stroke:#6b21a8,color:#fff
+          classDef chat     fill:#22c55e,stroke:#166534,color:#fff
+          classDef notif    fill:#f59e0b,stroke:#b45309,color:#fff
+          classDef db       fill:#64748b,stroke:#475569,color:#fff
+          classDef broker   fill:#ef4444,stroke:#991b1b,color:#fff
+
+          class Client,WS frontend
+          class User user
+          class Chat chat
+          class Notif notif
+          class UserDB,ChatDB db
+          class Rabbit broker
+      </div>
+
+      <p class="text-center mt-10 text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        В результате авторизации в User Service клиент получает пару JWT ключей. <br>
+        Каждый микросервис самостоятельно валидирует JWT из HTTP-only cookies.<br>
+        При создании новых сообщений Chat Service публикует событие <strong>message.created</strong> в RabbitMQ → 
+        Notification Service доставляет сообщение по WebSocket клиенту.
+      </p>
+    </div>
   </section>
 
+  <!-- ДЕМО ФУНКЦИОНАЛА С МОДАЛЬНЫМ ОКНОМ -->
   <section class="max-w-6xl mx-auto px-6 py-20 bg-slate-900" id="demo">
     <h2 class="text-4xl font-bold text-center mb-12">Демо функционала в видео</h2>
+    
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/mgCpxwlSpBU?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Регистрация</p>
+      
+      <div onclick="openVideoModal('https://www.youtube.com/embed/mgCpxwlSpBU', 'Регистрация и авторизация')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-blue-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-blue-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              👤
+            </div>
+            <p class="text-blue-400 font-semibold text-lg">Регистрация</p>
+            <p class="text-slate-400 text-sm mt-1">Создание аккаунта</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Регистрация и авторизация</p>
+        </div>
       </div>
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/NVpE3LIVDj0?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Авторизация</p>
+
+      <div onclick="openVideoModal('https://www.youtube.com/embed/NVpE3LIVDj0', 'Авторизация')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-emerald-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-emerald-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              🔑
+            </div>
+            <p class="text-emerald-400 font-semibold text-lg">Вход в систему</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Авторизация</p>
+        </div>
       </div>
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/kSfcRdmjdkg?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Создание чата</p>
+
+      <div onclick="openVideoModal('https://www.youtube.com/embed/kSfcRdmjdkg', 'Создание чата')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-violet-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-violet-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              💬
+            </div>
+            <p class="text-violet-400 font-semibold text-lg">Новый чат</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Создание обычного чата</p>
+        </div>
       </div>
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/GuuQK6xX9Rw?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Создание группового чата</p>
+
+      <div onclick="openVideoModal('https://www.youtube.com/embed/GuuQK6xX9Rw', 'Создание группового чата')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-rose-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-rose-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              👥
+            </div>
+            <p class="text-rose-400 font-semibold text-lg">Групповой чат</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Создание группового чата</p>
+        </div>
       </div>
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/UFX98yI_cY0?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Отправка сообщений в чате</p>
+
+      <div onclick="openVideoModal('https://www.youtube.com/embed/UFX98yI_cY0', 'Отправка сообщений в чате')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-amber-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-amber-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              ✉️
+            </div>
+            <p class="text-amber-400 font-semibold text-lg">Сообщения</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Отправка сообщений в чате</p>
+        </div>
       </div>
-      <div>
-        <iframe class="w-full aspect-video rounded-3xl" src="https://www.youtube.com/embed/Bl3cQSFiYYw?controls=0&modestbranding=1&rel=0" frameborder="0" allowfullscreen></iframe>
-        <p class="mt-3 text-center">Отправка сообщений в групповом чате</p>
+
+      <div onclick="openVideoModal('https://www.youtube.com/embed/Bl3cQSFiYYw', 'Отправка сообщений в групповом чате')" 
+          class="group cursor-pointer bg-zinc-900 rounded-3xl overflow-hidden border border-slate-700 hover:border-blue-500 hover:-translate-y-1 transition-all duration-300">
+        <div class="h-56 flex items-center justify-center bg-gradient-to-br from-cyan-950 to-slate-900">
+          <div class="text-center">
+            <div class="w-20 h-20 mx-auto mb-4 bg-cyan-600/10 rounded-2xl flex items-center justify-center text-4xl">
+              👥✉️
+            </div>
+            <p class="text-cyan-400 font-semibold text-lg">Групповые сообщения</p>
+          </div>
+        </div>
+        <div class="p-6 text-center">
+          <p class="font-medium text-slate-200">Отправка сообщений в групповом чате</p>
+        </div>
       </div>
+
     </div>
   </section>
+
+  <div id="videoModal" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center p-4">
+    <div class="max-w-5xl w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl">
+      <div class="flex justify-between items-center px-6 py-4 border-b border-slate-700">
+        <h3 id="modalTitle" class="text-xl font-semibold text-slate-200"></h3>
+        <button onclick="closeVideoModal()" 
+                class="text-slate-400 hover:text-white text-3xl leading-none transition-colors">
+          ×
+        </button>
+      </div>
+      <div class="p-4 md:p-6">
+        <div class="aspect-video bg-black rounded-2xl overflow-hidden">
+          <iframe id="modalVideo" 
+                  class="w-full h-full" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <footer class="bg-black py-12 text-center text-slate-500">
     Сделано с ❤️ для портфолио • Симонян Варос • 2026
   </footer>
 
   <script>
-    // Инициализация Tailwind
     tailwind.config = { content: ["*"], theme: { extend: {} } }
-    // Инициализация Mermaid
-    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    mermaid.initialize({ 
+      startOnLoad: true, 
+      theme: 'dark',
+      flowchart: { 
+        useMaxWidth: true,
+        htmlLabels: true 
+      }
+    });
+
+    function openVideoModal(videoId, title) {
+      document.getElementById('modalTitle').textContent = title;
+      const iframe = document.getElementById('modalVideo');
+      iframe.src = videoId + "?autoplay=1&modestbranding=1&rel=0";
+      document.getElementById('videoModal').classList.remove('hidden');
+      document.getElementById('videoModal').classList.add('flex');
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('modalVideo');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      iframe.src = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        closeVideoModal();
+      }
+    });
+
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVideoModal();
+      }
+    });
   </script>
 </body>
 </html>
